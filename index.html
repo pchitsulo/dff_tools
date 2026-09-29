@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DFF data collection tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --bg: #EEF2F5;
+  --surface: #FFFFFF;
+  --ink: #12263A;
+  --muted: #52667A;
+  --line: #D5DEE6;
+  --national: #3B4BA8;
+  --district: #0A7A6C;
+  --facility: #B4561B;
+  --focus: #F2B705;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1A24; --surface: #172633; --ink: #E8EEF3; --muted: #9FB1C1; --line: #2A3C4C;
+    --national: #8F9BF0; --district: #4CC7B4; --facility: #F0955A;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1A24; --surface: #172633; --ink: #E8EEF3; --muted: #9FB1C1; --line: #2A3C4C;
+  --national: #8F9BF0; --district: #4CC7B4; --facility: #F0955A;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Atkinson Hyperlegible", "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 18px; line-height: 1.45; -webkit-text-size-adjust: 100%;
+}
+main { max-width: 760px; margin: 0 auto; padding: 28px 18px 40px; }
+header { margin-bottom: 26px; }
+h1 { font-size: clamp(1.7rem, 5vw, 2.3rem); line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.01em; }
+.intro { color: var(--muted); margin: 0; max-width: 60ch; }
+section { margin-top: 26px; }
+h2 {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 1.15rem; margin: 0 0 10px;
+}
+h2::before {
+  content: ""; width: 14px; height: 14px; border-radius: 4px; background: var(--c);
+}
+h2 small { font-weight: 400; color: var(--muted); font-size: 0.95rem; }
+ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+a.tool {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  min-height: 72px; padding: 14px 18px;
+  background: var(--surface); color: var(--ink); text-decoration: none;
+  border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 10px;
+}
+a.tool:active { transform: scale(0.99); background: color-mix(in srgb, var(--c) 8%, var(--surface)); }
+a.tool:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.name { font-weight: 700; font-size: 1.08rem; display: block; }
+.who { color: var(--muted); font-size: 0.92rem; display: block; margin-top: 2px; }
+.open {
+  flex: none; font-weight: 700; font-size: 0.95rem; color: var(--c);
+  border: 2px solid var(--c); border-radius: 999px; padding: 6px 14px;
+}
+.national { --c: var(--national); }
+.district { --c: var(--district); }
+.facility { --c: var(--facility); }
+footer { margin-top: 34px; color: var(--muted); font-size: 0.92rem; border-top: 1px solid var(--line); padding-top: 16px; }
+footer p { margin: 0 0 8px; }
+@media (min-width: 700px) {
+  ul { grid-template-columns: 1fr 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { a.tool:active { transform: none; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>DFF process evaluation data collection tools</h1>
+    <p class="intro">Tap a tool to open its KoboToolbox form. Pick the one that matches the person or place you are assessing.</p>
+  </header>
+
+  <section class="national">
+    <h2>National level <small>4 tools</small></h2>
+    <ul>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/FYQvGVw5"><span><span class="name">MoHS / DFF Taskforce KII</span><span class="who">Key informant interview</span></span><span class="open">Open</span></a></li>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/WVoDgeEX"><span><span class="name">Implementing Partners KII</span><span class="who">Key informant interview</span></span><span class="open">Open</span></a></li>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/3z6HJDKg"><span><span class="name">Internal Auditors KII</span><span class="who">MoH accountants</span></span><span class="open">Open</span></a></li>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/2F4pUjm9"><span><span class="name">DFF Acceptability Questionnaire</span><span class="who">National-level partners and stakeholders</span></span><span class="open">Open</span></a></li>
+    </ul>
+  </section>
+
+  <section class="district">
+    <h2>District level <small>3 tools</small></h2>
+    <ul>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/ChuTgQKg"><span><span class="name">DFF Competence Assessment</span><span class="who">DHMT / district level</span></span><span class="open">Open</span></a></li>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/iTUgcBwy"><span><span class="name">DHMT KII</span><span class="who">Chair, DFO, DOF</span></span><span class="open">Open</span></a></li>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/XWocoAnC"><span><span class="name">DFO KII Tool</span><span class="who">Key informant interview</span></span><span class="open">Open</span></a></li>
+    </ul>
+  </section>
+
+  <section class="facility">
+    <h2>Facility level <small>4 tools</small></h2>
+    <ul>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/ywESB0U8"><span><span class="name">DFF Competence Assessment</span><span class="who">Facility level</span></span><span class="open">Open</span></a></li>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/XNVUU5vl"><span><span class="name">Facility In-Charge KII</span><span class="who">Key informant interview</span></span><span class="open">Open</span></a></li>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/zTbgkdb7"><span><span class="name">HCMCs KII Tool</span><span class="who">Health centre management committees</span></span><span class="open">Open</span></a></li>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/GG5PuPrw"><span><span class="name">DFF Implementation Fidelity KII Guide</span><span class="who">Facility level</span></span><span class="open">Open</span></a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Open each form once while connected to the internet. After that it keeps working offline, and submissions upload the next time the tablet is online.</p>
+    <p>To return to this list from a form, use the tablet's back button.</p>
+  </footer>
+</main>
+</body>
+</html>
