@@ -1,6 +1,6 @@
 // DFF Tools launcher – offline support.
 // When you change index.html, bump VERSION so tablets refresh their saved copy.
-const VERSION = 'dff-tools-v1';
+const VERSION = 'dff-tools-v2';
 const FILES = ['./', './index.html', './manifest.webmanifest',
   './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
 
