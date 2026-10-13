@@ -4,9 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>DFF data collection tools</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0A7A6C">
+<meta name="description" content="Launcher for the DFF process evaluation KoboToolbox forms">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root {
   box-sizing: border-box;
@@ -36,7 +38,7 @@
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 body {
   margin: 0; background: var(--bg); color: var(--ink);
-  font-family: "Atkinson Hyperlegible", "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: Roboto, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px; line-height: 1.45; -webkit-text-size-adjust: 100%;
 }
 main { max-width: 760px; margin: 0 auto; padding: 28px 18px 40px; }
@@ -70,6 +72,22 @@ a.tool:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .national { --c: var(--national); }
 .district { --c: var(--district); }
 .facility { --c: var(--facility); }
+.install {
+  display: none; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  margin: 0 0 22px; padding: 14px 16px; border-radius: 10px;
+  background: var(--surface); border: 2px solid var(--district);
+}
+.install.show { display: flex; }
+.install p { margin: 0; font-size: 0.98rem; }
+.install button {
+  font: inherit; font-weight: 700; color: #fff; background: var(--district);
+  border: 0; border-radius: 999px; padding: 10px 20px; min-height: 44px; cursor: pointer;
+}
+.install button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.status { display: inline-flex; align-items: center; gap: 8px; margin: 12px 0 0; font-size: 0.9rem; color: var(--muted); }
+.status::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.status.ready::before { background: var(--district); }
+.status.offline::before { background: var(--facility); }
 footer { margin-top: 34px; color: var(--muted); font-size: 0.92rem; border-top: 1px solid var(--line); padding-top: 16px; }
 footer p { margin: 0 0 8px; }
 @media (min-width: 700px) {
@@ -83,7 +101,13 @@ footer p { margin: 0 0 8px; }
   <header>
     <h1>DFF process evaluation data collection tools</h1>
     <p class="intro">Tap a tool to open its KoboToolbox form. Pick the one that matches the person or place you are assessing.</p>
+    <p class="status" id="status">Checking offline readiness…</p>
   </header>
+
+  <div class="install" id="install">
+    <p><strong>Install this launcher</strong> to add an icon to the home screen and open it without internet.</p>
+    <button type="button" id="installBtn">Install</button>
+  </div>
 
   <section class="national">
     <h2>National level <small>3 tools</small></h2>
@@ -104,19 +128,49 @@ footer p { margin: 0 0 8px; }
   </section>
 
   <section class="facility">
-    <h2>Facility level <small>3 tools</small></h2>
+    <h2>Facility level <small>4 tools</small></h2>
     <ul>
       <li><a class="tool" href="https://ee.kobotoolbox.org/x/XNVUU5vl" target="_blank" rel="noopener"><span><span class="name">DFF Governance, Financing Arrangements and Outcomes: Facility In-Charge KII</span></span><span class="open">Open</span></a></li>
-      <li><a class="tool" href="https://ee.kobotoolbox.org/x/zTbgkdb7" target="_blank" rel="noopener"><span><span class="name">DFF Governance, Financing Arrangements and Outcomes: HCMC FGD Guide</span></span><span class="open">Open</span></a></li>
-      <li><a class="tool" href="https://ee.kobotoolbox.org/x/vLQnIatN" target="_blank" rel="noopener"><span><span class="name">Facility Implementation Fidelity Assessment Guide</span></span><span class="open">Open</span></a></li>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/zTbgkdb7" target="_blank" rel="noopener"><span><span class="name">DFF Governance, Financing Arrangements and Outcomes: HCMCs KII Tool</span><span class="who">Health centre management committees</span></span><span class="open">Open</span></a></li>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/GG5PuPrw" target="_blank" rel="noopener"><span><span class="name">Facility Implementation Fidelity Assessment: KII Guide</span></span><span class="open">Open</span></a></li>
+      <li><a class="tool" href="https://ee.kobotoolbox.org/x/vLQnIatN" target="_blank" rel="noopener"><span><span class="name">Facility Implementation Fidelity Assessment: HCMC Guide</span></span><span class="open">Open</span></a></li>
     </ul>
   </section>
 
   <footer>
     <p>Open each form once while connected to the internet. After that it keeps working offline, and submissions upload the next time the tablet is online.</p>
-    <p>Each form opens in a new tab, so this list stays open. To pick another tool, switch back to this tab.</p>
+    <p>Each form opens in Chrome, so this launcher stays open. To pick another tool, switch back to the launcher.</p>
     <p><strong>If you are told that a tool has been updated in KoboToolbox,</strong> open that form while connected to the internet and refresh the page twice. This downloads the new version of the form.</p>
   </footer>
 </main>
+<script>
+(function () {
+  var status = document.getElementById('status');
+  function setStatus(text, cls) { status.textContent = text; status.className = 'status ' + (cls || ''); }
+  function refresh() {
+    if (!navigator.onLine) { setStatus('Offline – the launcher still works. Forms open if each was opened once online.', 'offline'); return; }
+    if (navigator.serviceWorker && navigator.serviceWorker.controller) setStatus('Ready to work offline', 'ready');
+  }
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(function () {
+      return navigator.serviceWorker.ready;
+    }).then(function () { setStatus('Ready to work offline', 'ready'); refresh(); })
+      .catch(function () { setStatus('Offline mode unavailable in this browser'); });
+  } else { setStatus('Offline mode unavailable in this browser'); }
+  window.addEventListener('online', refresh);
+  window.addEventListener('offline', refresh);
+
+  var deferred = null, box = document.getElementById('install');
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault(); deferred = e; box.classList.add('show');
+  });
+  document.getElementById('installBtn').addEventListener('click', function () {
+    if (!deferred) return;
+    deferred.prompt();
+    deferred.userChoice.finally(function () { deferred = null; box.classList.remove('show'); });
+  });
+  window.addEventListener('appinstalled', function () { box.classList.remove('show'); });
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,17 @@
+{
+  "name": "DFF process evaluation data collection tools",
+  "short_name": "DFF Tools",
+  "description": "Launcher for the DFF process evaluation KoboToolbox forms",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#EEF2F5",
+  "theme_color": "#0A7A6C",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
